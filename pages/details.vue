@@ -2,12 +2,11 @@
   <div>
     <a-row>
       <a-col :span="22">
-        {{ name }}
-        <Flatbond :flatbond="flatbond"/>
+        <Flatbond :flatbond="$store.state.flatbond"/>
       </a-col>
       <a-col :span="2">
         <nuxt-link :to="`/create`">
-            <a-button type="primary" icon="backward">Go</a-button>
+          <a-button type="primary" icon="backward">Go</a-button>
         </nuxt-link>
       </a-col>
     </a-row>
@@ -18,13 +17,6 @@
 import Flatbond from '../components/Flatbond'
 
 export default {
-  props: {
-    flatbond: {
-      type: Object,
-      default: () => ({})
-    },
-    name: String
-  },
   components: {
     Flatbond
   }

@@ -43,7 +43,8 @@ module.exports = {
   */
   modules: [,
     '@nuxtjs/pwa',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    // '@nuxtjs/router'
   ],
 
   /*

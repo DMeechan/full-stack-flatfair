@@ -49,6 +49,7 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
 import createFlatbondMutation from '../apollo/mutations/createFlatbond.gql'
 
 export default {
@@ -93,7 +94,7 @@ export default {
       return asInteger
     },
     async createFlatbond() {
-      if (!this.validateInputs()) return
+      //   if (!this.validateInputs()) return
       this.loadingSubmission = true
 
       const newFlatbond = {
@@ -133,17 +134,9 @@ export default {
       })
     },
     redirectToDetailsPage(flatbond) {
+      this.$store.commit('SET_FLATBOND', flatbond)
       this.$router.push({
-        name: 'details',
-        params: {
-          name: 'daniel',
-          flatbond: {
-            rent: 2000,
-            postcode: 'abcabc',
-            client_id: 1,
-            membership_fee: 10101
-          }
-        }
+        path: 'details'
       })
     }
   }
