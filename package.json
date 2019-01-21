@@ -24,10 +24,13 @@
     "@nuxtjs/pwa": "^2.6.0",
     "ant-design-vue": "^1.1.10",
     "apollo-server-lambda": "^2.3.1",
+    "bufferutil": "^4.0.1",
     "cross-env": "^5.2.0",
     "cypress": "^3.1.4",
+    "graphql": "^14.1.1",
     "graphql-tools": "^4.0.3",
-    "nuxt": "^2.3.4"
+    "nuxt": "^2.3.4",
+    "utf-8-validate": "^5.0.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-object-assign": "^7.2.0",
