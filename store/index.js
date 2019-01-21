@@ -1,3 +1,5 @@
+/*eslint camelcase: [2, {properties: "never"}]*/
+
 export const state = () => ({
   flatbond: {
     client_id: 1,
