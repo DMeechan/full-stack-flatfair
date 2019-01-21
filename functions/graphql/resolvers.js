@@ -29,7 +29,7 @@ let flatbonds = [
 
 export const resolvers = {
     Query: {
-        config: (_, { id }) => find(configs, { id }),
+        config: (_, { client_id }) => find(configs, { parseInt(client_id) }),
         configs: () => configs
     },
 

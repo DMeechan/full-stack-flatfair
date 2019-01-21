@@ -2,24 +2,29 @@ import { gql } from 'apollo-server-lambda'
 
 export const typeDefs = gql`
     type Query {
-        config(id: Int!): Config
+        config(client_id: Int!): Config
         configs: [Config]
     }
     
     type Mutation {
-        createFlatbond(rent: Int!, membership_fee: Int!, postcode: String!, client_id: Int!): Flatbond
+        createFlatbond(
+            rent: Int!,
+            membership_fee: Int!,
+            postcode: String!,
+            client_id: Int!)
+        : Flatbond
     }
 
     type Config {
-        client_id
-        fixed_membership_fee
-        fixed_membership_fee_amount
+        client_id: Int!
+        fixed_membership_fee: Int!
+        fixed_membership_fee_amount: Int!
     }
 
     type Flatbond {
-        rent
-        membership_fee
-        postcode
-        client_id
+        rent: Int!
+        membership_fee: Int!
+        postcode: String!
+        client_id: Int!
     }
 `
