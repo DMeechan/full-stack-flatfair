@@ -1,4 +1,4 @@
-/*eslint camelcase: [2, {properties: "never"}]*/
+/* eslint camelcase: [2, {properties: "never"}] */
 
 export const state = () => ({
   flatbond: {
