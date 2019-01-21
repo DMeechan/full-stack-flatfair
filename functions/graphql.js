@@ -11,7 +11,23 @@ import { resolvers } from './graphql/resolvers'
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
-});
+  resolvers
+})
 
-exports.handler = server.createHandler();
+// exports.handler = server.createHandler({
+//   cors: {
+//     origin: '*',
+//   }
+// })
+
+exports.handler = server.createHandler({
+  cors: {
+    origin: '*',
+    methods: 'POST',
+    allowedHeaders: [
+      'Content-Type',
+      'Origin',
+      'Accept'
+    ]
+  }
+});

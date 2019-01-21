@@ -42,8 +42,28 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [,
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
   ],
+
+  /*
+    Configure Apollo so webpack doesn't complain about not knowing how
+    to handle GraphQL files
+  */
+ apollo: {
+  errorHandler(error) {
+    console.log(
+      '%cError',
+      'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
+      error.message
+    )
+  },
+  clientConfigs: {
+    default: {
+      httpEndpoint: 'http://localhost:9000/graphql'
+    }
+  }
+ },
 
   /*
   ** Build configuration

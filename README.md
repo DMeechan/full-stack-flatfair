@@ -108,3 +108,7 @@ mutation {
     }
 }
 ```
+
+## Difficulties
+
+Toughest part: solving a couple of bugs with getting the Apollo server running on Netlify's serverless.

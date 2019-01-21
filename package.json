@@ -21,6 +21,7 @@
     "e2e:open": "cypress open"
   },
   "dependencies": {
+    "@nuxtjs/apollo": "^4.0.0-rc2.3",
     "@nuxtjs/pwa": "^2.6.0",
     "ant-design-vue": "^1.1.10",
     "apollo-server-lambda": "^2.3.1",
