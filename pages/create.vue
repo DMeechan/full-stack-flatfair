@@ -112,8 +112,10 @@ export default {
         const flatbond = mutation.data.createFlatbond
         console.log('Flatbond:', flatbond)
         this.loadingSubmission = false
+        this.redirectToDetailsPage(flatbond)
       } catch (error) {
         console.error(error)
+        this.openNotification('error', error)
         this.loadingSubmission = false
       }
     },
@@ -128,6 +130,20 @@ export default {
     openNotification(type, title) {
       this.$notification[type]({
         message: title
+      })
+    },
+    redirectToDetailsPage(flatbond) {
+      this.$router.push({
+        name: 'details',
+        params: {
+          name: 'daniel',
+          flatbond: {
+            rent: 2000,
+            postcode: 'abcabc',
+            client_id: 1,
+            membership_fee: 10101
+          }
+        }
       })
     }
   }

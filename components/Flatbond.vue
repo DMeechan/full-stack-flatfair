@@ -1,9 +1,10 @@
 <template>
   <div>
     <p>
-      Flatbond for client {{ client_id }}
-      Fee? {{ fixed_membership_fee }}
-      Amount? {{ fixed_membership_fee_amount }}
+      Flatbond for client {{ flatbond.client_id }}
+      Rent? {{ flatbond.rent }}
+      Postcode? {{ flatbond.postcode }}
+      Fee? {{ flatbond.membership_fee }}
     </p>
   </div>
 </template>
@@ -11,9 +12,10 @@
 <script>
 export default {
   props: {
-    client_id: Number,
-    fixed_membership_fee: Boolean,
-    fixed_membership_fee_amount: Number
+    flatbond: Object
+    // client_id: Number,
+    // fixed_membership_fee: Boolean,
+    // fixed_membership_fee_amount: Number
   }
 }
 </script>
