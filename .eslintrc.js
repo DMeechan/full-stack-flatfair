@@ -17,6 +17,6 @@ module.exports = {
   // add your custom rules here
   rules: {
     'no-console': 'off',
-    "camelcase": [2, {"properties": "never"}]
+    "camelcase": ['error', {'properties': 'never'}]
   }
 }

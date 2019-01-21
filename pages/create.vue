@@ -49,7 +49,6 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
 import createFlatbondMutation from '../apollo/mutations/createFlatbond.gql'
 
 export default {
