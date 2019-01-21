@@ -1,0 +1,17 @@
+mutation createFlatbond(
+    $rent: Int!,
+    $membership_fee: Int!,
+    $postcode: String!,
+    $client_id: Int!) {
+        createFlatbond(
+            rent: $rent,
+            membership_fee: $membership_fee,
+            postcode: $postcode,
+            client_id: $client_id) {
+                rent
+                membership_fee
+                postcode
+                client_id
+        }
+    }
+}

@@ -27,9 +27,12 @@ let flatbonds = [
     }
 ]
 
+// filter the array by client_id field, grab first element because it should be unique
+const findFirstClientId = (arr, client_id) => arr.filter(elem => elem.client_id === client_id)[0]
+
 export const resolvers = {
     Query: {
-        config: (_, { client_id }) => find(configs, { parseInt(client_id) }),
+        config: (_, {client_id}) => findFirstClientId(configs, parseInt(client_id)),
         configs: () => configs
     },
 

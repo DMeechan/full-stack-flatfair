@@ -1,0 +1,7 @@
+query Configs {
+    Configs {
+        client_id
+        fixed_membership_fee
+        fixed_membership_fee_amount
+    }
+}
