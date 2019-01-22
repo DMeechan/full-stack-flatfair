@@ -7,12 +7,10 @@ const format = number => toInt(round(number))
  * Calculate membership fee by considering rent and fixed membership fees
  * @param {Object} fixed_membership_fee, fixed_membership_fee_amount, rentPeriod, rent
  */
-export const getMembershipFee = ({
-  fixed_membership_fee,
-  fixed_membership_fee_amount,
-  rentPeriod,
-  rent
-}, usePence = false) => {
+export const getMembershipFee = (
+  { fixed_membership_fee, fixed_membership_fee_amount, rentPeriod, rent },
+  usePence = false
+) => {
   // Use the fixed membership fee if given
   if (fixed_membership_fee === true)
     return format(fixed_membership_fee_amount * VAT)
@@ -56,26 +54,32 @@ export const validateRent = rent => {
  * @param {Object} config
  * @return {boolean} isValid
  */
-export const isFlatbondValid = (rent, config) => {
+export const isFlatbondValid = (membership_fee, rent, config) => {
   const usePence = true
   /*
     If the membership fee is not fixed, let's re-calculate it to verify it
     but we don't know if the rent value is weekly or monthly (an oversight in the API)
     so we'll have to calculate both and check if rent matches either of them
   */
-  const expectedWeeklyMembershipFee = getMembershipFee({
-    rentPeriod: 'weekly',
-    fixed_membership_fee: config.fixed_membership_fee,
-    fixed_membership_fee_amount: config.fixed_membership_fee_amount,
-    rent
-  }, usePence)
+  const expectedWeeklyMembershipFee = getMembershipFee(
+    {
+      rentPeriod: 'weekly',
+      fixed_membership_fee: config.fixed_membership_fee,
+      fixed_membership_fee_amount: config.fixed_membership_fee_amount,
+      rent
+    },
+    usePence
+  )
 
-  const expectedMonthlyMembershipFee = getMembershipFee({
-    rentPeriod: 'monthly',
-    fixed_membership_fee: config.fixed_membership_fee,
-    fixed_membership_fee_amount: config.fixed_membership_fee_amount,
-    rent
-  }, usePence)
+  const expectedMonthlyMembershipFee = getMembershipFee(
+    {
+      rentPeriod: 'monthly',
+      fixed_membership_fee: config.fixed_membership_fee,
+      fixed_membership_fee_amount: config.fixed_membership_fee_amount,
+      rent
+    },
+    usePence
+  )
 
   /*
     I've used double equals (==) here because the input values arrive 

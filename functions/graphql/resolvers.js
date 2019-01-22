@@ -55,7 +55,7 @@ export const resolvers = {
           'Unable to create flatbond; rent fee is incorrect'
         )
 
-      const valid = isFlatbondValid(rent, config)
+      const valid = isFlatbondValid(membership_fee, rent, config)
 
       if (valid) {
         flatbonds.push(flatbond)

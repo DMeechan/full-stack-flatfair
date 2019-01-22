@@ -164,6 +164,8 @@ export default {
         return
       }
 
+      console.log('newFlatbond: ', newFlatbond);
+
       try {
         const mutation = await this.$apollo.mutate({
           mutation: createFlatbondMutation,
