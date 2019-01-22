@@ -1,7 +1,7 @@
-query Config($client_id: Int!) {
-    Config(client_id: $client_id) {
-        client_id
-        fixed_membership_fee
-        fixed_membership_fee_amount
-    }
+query config($client_id: Int!) {
+  config(client_id: $client_id) {
+    client_id
+    fixed_membership_fee
+    fixed_membership_fee_amount
+  }
 }

@@ -2,7 +2,7 @@
   <div>
     <a-row>
       <a-col :span="24">
-        <h1>Create a flatbond</h1>
+        <h1>Create a flatbond for client {{ client_id }}</h1>
       </a-col>
     </a-row>
     <p>How much is your rent?</p>
@@ -45,21 +45,37 @@
         @click="createFlatbond"
       >Submit</a-button>
     </div>
+    {{ fixed_membership_fee_amount }}
   </div>
 </template>
 
 <script>
-import createFlatbondMutation from '../apollo/mutations/createFlatbond.gql'
+import createFlatbondMutation from '../../apollo/mutations/createFlatbond.gql'
+import configQuery from '../../apollo/queries/config.gql'
 
 export default {
+  apollo: {
+    config: {
+      query: configQuery,
+      prefetch: ({ route }) => ({
+        client_id: parseInt(route.params.client_id)
+      }),
+      variables() {
+        return {
+          client_id: this.clientId
+        }
+      }
+    }
+  },
+
   data() {
     return {
-      fixed_membership_fee: false,
-      fixed_membership_fee_amount: 0,
+      fixed_membership_fee: this.getConfig.fixed_membership_fee || false,
+      fixed_membership_fee_amount: this.getConfig.fixed_membership_fee_amount || -1,
       rentPeriod: 'monthly',
       rent: 800,
       postcode: '',
-      client_id: 0,
+      client_id: this.clientId,
       loadingSubmission: false
     }
   },
@@ -78,6 +94,12 @@ export default {
       if (membershipFee < minimumFee) membershipFee = minimumFee
 
       return membershipFee
+    },
+    clientId() {
+      return parseInt(this.$route.params.client_id)
+    },
+    getConfig() {
+      return false
     }
   },
   methods: {
