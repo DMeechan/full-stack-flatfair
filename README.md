@@ -57,13 +57,13 @@ On Netlify. The Nuxt.js front-end is being served by Netlify (with server-side r
 
 Why Netlify? It's free. It's pretty easy to use. It's super fast.
 
-Visit the [live demo](). (TDB)
+Visit the [live demo](https://flatfair.meechan.co/).
 
 ## Design
 
-### Screenshots
+### Screenshot of Cypress in action
 
-<img src="https://imgur.com/wx9V6GB" alt="screenshot gif" width="256"/>
+<img src="https://imgur.com/wx9V6GB.gif" alt="screenshot gif" width="512"/>
 
 ### Folder structure
 
