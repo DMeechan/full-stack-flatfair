@@ -2,7 +2,7 @@
   <div>
     <a-row>
       <a-col :span="24">
-        <h1>Create a flatbond for client {{ client_id }}</h1>
+        <h1>Create a flatbond for client {{ clientId }}</h1>
       </a-col>
     </a-row>
     <p>How much is your rent?</p>
@@ -45,7 +45,7 @@
         @click="createFlatbond"
       >Submit</a-button>
     </div>
-    {{ fixed_membership_fee_amount }}
+    {{ config.fixed_membership_fee_amount }}
   </div>
 </template>
 
@@ -70,20 +70,21 @@ export default {
 
   data() {
     return {
-      fixed_membership_fee: this.getConfig.fixed_membership_fee || false,
-      fixed_membership_fee_amount: this.getConfig.fixed_membership_fee_amount || -1,
       rentPeriod: 'monthly',
       rent: 800,
       postcode: '',
-      client_id: this.clientId,
-      loadingSubmission: false
+      loadingSubmission: false,
+      myConfig: {
+        fixed_membership_fee: false,
+        fixed_membership_fee_amount: 0,
+      }
     }
   },
   computed: {
     getMembershipFee() {
       const VAT = 1.2 // 20% VAT
-      if (this.fixed_membership_fee)
-        return this.fixed_membership_fee_amount * VAT
+      if (this.myConfig.fixed_membership_fee)
+        return this.myConfig.fixed_membership_fee_amount * VAT
 
       let membershipFee =
         this.rentPeriod === 'monthly' ? this.rent / 4 : this.rent
@@ -97,11 +98,18 @@ export default {
     },
     clientId() {
       return parseInt(this.$route.params.client_id)
-    },
-    getConfig() {
-      return false
     }
   },
+
+  watch: {
+    downloadedConfig(value) {
+      console.log('CONFIG LOADED')
+      console.log(value)
+      if (typeof value === 'undefined') return
+      this.myConfig = value
+    }
+  },
+
   methods: {
     round(num) {
       // Round always, even a num like 1.5 => 1.50
