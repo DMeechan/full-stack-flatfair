@@ -63,7 +63,7 @@ Visit the [live demo](https://flatfair.meechan.co/).
 
 ### Screenshot of Cypress in action
 
-<img src="https://imgur.com/wx9V6GB.gif" alt="screenshot gif" width="512"/>
+[Click here](https://imgur.com/wx9V6GB.gifA) to view the GIF of the pages & Cypress testing in action.
 
 ### Folder structure
 
@@ -79,8 +79,6 @@ Visit the [live demo](https://flatfair.meechan.co/).
 - test/e2e/integration/unit and test/e2e/integration/e2e - stores all of the tests, like test.spec.js
 - utils - handy files containing functionality which can be re-used across the application (both front and back-end)
 ```
-
-<img src="https://imgur.com/wx9V6GB" alt="screenshot gif" width="256"/>
 
 ### Folder structure
 
