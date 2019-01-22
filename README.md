@@ -57,7 +57,7 @@ On Netlify. The Nuxt.js front-end is being served by Netlify (with server-side r
 
 Why Netlify? It's free. It's pretty easy to use. It's super fast.
 
-Visit the [live demo](https://flatfair.meechan.co/).
+<!-- Visit the [live demo](https://flatfair.meechan.co/). -->
 
 ## Design
 
@@ -67,7 +67,7 @@ Visit the [live demo](https://flatfair.meechan.co/).
 
 ### Folder structure
 
-```python
+```bash
 - apollo - GraphQL queries & mutations to be used by the web client
 - components - components used in the web client, like the Header
 - functions - all of the files to serve an Apollo API over Netlify Functions
