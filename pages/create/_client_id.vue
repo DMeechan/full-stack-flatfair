@@ -23,12 +23,10 @@
     <!-- RENT AMOUNT -->
     <a-row class="vertical-space" v-show="!myConfig.fixed_membership_fee">
       <a-col :span="6">
-        <p>How much is your rent?</p>
+        <p>How much is your rent (in pounds)?</p>
       </a-col>
       <a-col :span="6">
         <a-input-number
-          :defaultValue="800"
-          :parser="value => value.replace(/\$\s?|(,*)/g, '')"
           :min="rentPeriod === 'monthly' ? 110 : 25"
           :max="rentPeriod === 'monthly' ? 8660 : 2000"
           v-model="rent"
@@ -46,8 +44,8 @@
       <a-col :span="6">
         <div>
           <a-radio-group v-model="rentPeriod">
-            <a-radio-button id="rent-weekly" value="weekly">Weekly</a-radio-button>
-            <a-radio-button id="rent-monthly" value="monthly">Monthly</a-radio-button>
+            <a-radio-button value="weekly">Weekly</a-radio-button>
+            <a-radio-button value="monthly">Monthly</a-radio-button>
           </a-radio-group>
         </div>
       </a-col>
@@ -69,7 +67,7 @@
         <p>Your membership fee will be:</p>
       </a-col>
       <a-col :span="6">
-        <span id="membership-fee">{{ getMembershipFee }}</span>
+        <span id="membership-fee">{{ membershipFee }}</span>
       </a-col>
     </a-row>
 
@@ -124,7 +122,7 @@ export default {
     }
   },
   computed: {
-    getMembershipFee() {
+    membershipFee() {
       return (
         getMembershipFee({
           fixed_membership_fee: this.myConfig.fixed_membership_fee,
@@ -132,7 +130,7 @@ export default {
             .fixed_membership_fee_amount,
           rentPeriod: this.rentPeriod,
           rent: this.rent
-        }) / 100
+        })
       ) // convert it from pence into pounds
     },
     clientId() {
@@ -158,7 +156,7 @@ export default {
         rent: toPence(this.rent),
         postcode: this.postcode,
         client_id: this.clientId,
-        membership_fee: toPence(this.getMembershipFee)
+        membership_fee: toPence(this.membershipFee)
       }
 
       if (!validateFlatbond(newFlatbond, this.openNotification)) {

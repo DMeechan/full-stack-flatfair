@@ -12,7 +12,7 @@ export const getMembershipFee = ({
   fixed_membership_fee_amount,
   rentPeriod,
   rent
-}) => {
+}, usePence = false) => {
   // Use the fixed membership fee if given
   if (fixed_membership_fee === true)
     return format(fixed_membership_fee_amount * VAT)
@@ -23,7 +23,7 @@ export const getMembershipFee = ({
 
   // Finally, let's check that the fee is at least £120 + VAT
   // And return whichever one is bigger: the minimum fee or the calculated fee
-  const minimumFee = toPence(120 * VAT)
+  const minimumFee = usePence ? toPence(120 * VAT) : 120 * VAT
   const actualFee = membershipFee < minimumFee ? minimumFee : membershipFee
   return actualFee
 }
@@ -57,6 +57,7 @@ export const validateRent = rent => {
  * @return {boolean} isValid
  */
 export const isFlatbondValid = (rent, config) => {
+  const usePence = true
   /*
     If the membership fee is not fixed, let's re-calculate it to verify it
     but we don't know if the rent value is weekly or monthly (an oversight in the API)
@@ -67,14 +68,14 @@ export const isFlatbondValid = (rent, config) => {
     fixed_membership_fee: config.fixed_membership_fee,
     fixed_membership_fee_amount: config.fixed_membership_fee_amount,
     rent
-  })
+  }, usePence)
 
   const expectedMonthlyMembershipFee = getMembershipFee({
     rentPeriod: 'monthly',
     fixed_membership_fee: config.fixed_membership_fee,
     fixed_membership_fee_amount: config.fixed_membership_fee_amount,
     rent
-  })
+  }, usePence)
 
   /*
     I've used double equals (==) here because the input values arrive 

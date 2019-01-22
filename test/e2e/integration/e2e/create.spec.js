@@ -3,7 +3,7 @@ describe('Create page', () => {
     cy.visit('/create/1')
     cy.contains('Create a flatbond for client 1')
     cy.contains('Do you have a fixed membership fee?')
-    cy.contains('How much is your rent?')
+    cy.contains('How much is your rent (in pounds)?')
     cy.contains("What's your postcode?")
 
     cy.get('.ant-input-number-input')
@@ -27,11 +27,11 @@ describe('Create page', () => {
     cy.get('#submit')
   })
 
-  it.only('create/2 allows users to enter and submit info, with a fixed membership fee', () => {
+  it('create/2 allows users to enter and submit info, with a fixed membership fee', () => {
     cy.visit('/create/2')
     cy.contains('Create a flatbond for client 2')
     cy.contains('Do you have a fixed membership fee?')
-    cy.contains('How much is your rent?').should('not.be.visible')
+    cy.contains('How much is your rent (in pounds)?').should('not.be.visible')
     cy.contains("What's your postcode?")
     cy.get('.ant-input-number-input').should('not.be.visible')
 

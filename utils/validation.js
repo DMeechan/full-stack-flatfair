@@ -6,7 +6,7 @@
  */
 export const validateFlatbond = (flatbond, showError) => {
   console.log('flatbond: ', flatbond)
-  if (flatbond.postcode.length < 5 || typeof flatbond.membership_fee !== 'string') {
+  if (flatbond.postcode.length < 5 || typeof flatbond.postcode !== 'string') {
     showError('error', 'Postcode is too short')
     return false
   }
