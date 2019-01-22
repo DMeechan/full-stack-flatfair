@@ -1,29 +1,29 @@
 import { UserInputError } from 'apollo-server-lambda'
-import { getMembershipFee, validateRent } from '../../utils/businessLogic'
-import { toInt } from '../../utils/maths'
+import { validateRent, isFlatbondValid } from '../../utils/businessLogic'
+import { toPence } from '../../utils/maths'
 
 let configs = [
   {
     client_id: 1,
     fixed_membership_fee: false,
-    fixed_membership_fee_amount: 0
+    fixed_membership_fee_amount: toPence(0)
   },
   {
     client_id: 2,
     fixed_membership_fee: true,
-    fixed_membership_fee_amount: 150 * 100
+    fixed_membership_fee_amount: toPence(150)
   },
   {
     client_id: 3,
     fixed_membership_fee: false,
-    fixed_membership_fee_amount: 250 * 100
+    fixed_membership_fee_amount: toPence(250)
   }
 ]
 
 let flatbonds = [
   {
-    rent: 800 * 100,
-    membership_fee: (800 / 4) * 1.2,
+    rent: toPence(800),
+    membership_fee: toPence((800 / 4) * 1.2),
     postcode: 'AWS EC2',
     client_id: 1
   }
@@ -55,31 +55,7 @@ export const resolvers = {
           'Unable to create flatbond; rent fee is incorrect'
         )
 
-      /*
-        If the membership fee is not fixed, let's re-calculate it to verify it
-        but we don't know if the rent value is weekly or monthly (an oversight in the API)
-        so we'll have to calculate both and check if rent matches either of them
-      */
-      const expectedWeeklyMembershipFee = getMembershipFee({
-        rentPeriod: 'weekly',
-        rent,
-        ...config
-      })
-
-      const expectedMonthlyMembershipFee = getMembershipFee({
-        rentPeriod: 'monthly',
-        rent,
-        ...config
-      })
-
-      /*
-        I've used double equals (==) here because the input values arrive 
-        without decimal places, while the expected values have 2 decimal places
-        example: 24000 !== 24000.00
-      */
-      const valid =
-        membership_fee == expectedMonthlyMembershipFee ||
-        membership_fee == expectedWeeklyMembershipFee
+      const valid = isFlatbondValid(rent, config)
 
       if (valid) {
         flatbonds.push(flatbond)

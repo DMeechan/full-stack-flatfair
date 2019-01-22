@@ -20,7 +20,7 @@ export const getMembershipFee = ({
   // If they dont have fixed membership, we'll calculate the fee by doing weekly rent * VAT
   const weeklyRent = rentPeriod === 'monthly' ? rent / 4 : rent
   const membershipFee = format(weeklyRent * VAT)
-  
+
   // Finally, let's check that the fee is at least £120 + VAT
   // And return whichever one is bigger: the minimum fee or the calculated fee
   const minimumFee = toPence(120 * VAT)
@@ -47,4 +47,41 @@ export const validateRent = rent => {
   const maximum = toPence(8660)
 
   return rent >= minimum && rent <= maximum
+}
+
+/**
+ * Check the calculation of a flatbond membership. We need to check it for both
+ * weekly and monthly rent amounts, since we don't know which one the user has chosen
+ * @param {number} rent
+ * @param {Object} config
+ * @return {boolean} isValid
+ */
+export const isFlatbondValid = (rent, config) => {
+  /*
+    If the membership fee is not fixed, let's re-calculate it to verify it
+    but we don't know if the rent value is weekly or monthly (an oversight in the API)
+    so we'll have to calculate both and check if rent matches either of them
+  */
+  const expectedWeeklyMembershipFee = getMembershipFee({
+    rentPeriod: 'weekly',
+    rent,
+    ...config
+  })
+
+  const expectedMonthlyMembershipFee = getMembershipFee({
+    rentPeriod: 'monthly',
+    rent,
+    ...config
+  })
+
+  /*
+    I've used double equals (==) here because the input values arrive 
+    without decimal places, while the expected values have 2 decimal places
+    example: 24000 !== 24000.00
+  */
+  const valid =
+    membership_fee == expectedMonthlyMembershipFee ||
+    membership_fee == expectedWeeklyMembershipFee
+
+  return valid
 }
