@@ -17,7 +17,7 @@ export const typeDefs = gql`
 
     type Config {
         client_id: Int!
-        fixed_membership_fee: Int!
+        fixed_membership_fee: Boolean!
         fixed_membership_fee_amount: Int!
     }
 

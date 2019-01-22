@@ -1,16 +1,33 @@
 <template>
-  <div>
+  <a-card :bordered="false">
+    <!-- TITLE -->
     <a-row>
       <a-col :span="24">
         <h1>Create a flatbond for client {{ clientId }}</h1>
       </a-col>
     </a-row>
-    <p>How much is your rent?</p>
-    <a-row :gutter="32">
+
+    <!-- FIXED MEMBERSHIP FEE: YES / NO -->
+    <a-row class="vertical-space">
+      <a-col :span="6">
+        <p>Do you have a fixed membership fee?</p>
+      </a-col>
+      <a-col :span="6">
+        <a-radio-group v-model="myConfig.fixed_membership_fee" disabled buttonStyle="solid">
+          <a-radio-button v-bind:value="true">Yes</a-radio-button>
+          <a-radio-button v-bind:value="false">No</a-radio-button>
+        </a-radio-group>
+      </a-col>
+    </a-row>
+
+    <!-- RENT AMOUNT -->
+    <a-row class="vertical-space" v-show="!myConfig.fixed_membership_fee">
+      <a-col :span="6">
+        <p>How much is your rent?</p>
+      </a-col>
       <a-col :span="6">
         <a-input-number
           :defaultValue="800"
-          :formatter="value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
           :parser="value => value.replace(/\$\s?|(,*)/g, '')"
           :min="rentPeriod === 'monthly' ? 110 : 25"
           :max="rentPeriod === 'monthly' ? 8660 : 2000"
@@ -21,6 +38,11 @@
           <a-icon slot="prefix" type="pound"/>
         </a-input-number>
       </a-col>
+    </a-row>
+
+    <!-- RENT AMOUNT: WEEKLY OR MONTHLY -->
+    <a-row class="vertical-space" v-show="!myConfig.fixed_membership_fee">
+      <a-col :span="6"/>
       <a-col :span="6">
         <div>
           <a-radio-group v-model="rentPeriod">
@@ -30,13 +52,26 @@
         </div>
       </a-col>
     </a-row>
-    <p class="vertical-space">What's your postcode?</p>
-    <a-row :gutter="32">
-      <a-col :span="5">
+
+    <!-- POSTCODE -->
+    <a-row class="vertical-space">
+      <a-col :span="6">
+        <p>What's your postcode?</p>
+      </a-col>
+      <a-col :span="6">
         <a-input placeholder v-model="postcode" ref="postcode"/>
       </a-col>
     </a-row>
-    <p class="vertical-space">Your membership fee will be: {{ getMembershipFee }}</p>
+
+    <!-- MEMBERSHIP FEE -->
+    <a-row class="vertical-space">
+      <a-col :span="6">
+        <p>Your membership fee will be:</p>
+      </a-col>
+      <a-col :span="6">{{ getMembershipFee }}</a-col>
+    </a-row>
+
+    <!-- SUBMIT BUTTON -->
     <div class="vertical-space">
       <a-button
         type="primary"
@@ -45,20 +80,24 @@
         @click="createFlatbond"
       >Submit</a-button>
     </div>
-    {{ config.fixed_membership_fee_amount }}
-  </div>
+  </a-card>
 </template>
 
 <script>
 import createFlatbondMutation from '../../apollo/mutations/createFlatbond.gql'
 import configQuery from '../../apollo/queries/config.gql'
 
+import { toPence, toInt } from '../../utils/maths.js'
+import { getMembershipFee } from '../../utils/businessLogic.js'
+import { validateFlatbond } from '../../utils/validation.js'
+
 export default {
+  // Send a GraphQL request to config(client_id) and store it in this.config
   apollo: {
     config: {
       query: configQuery,
       prefetch: ({ route }) => ({
-        client_id: parseInt(route.params.client_id)
+        client_id: toInt(route.params.client_id)
       }),
       variables() {
         return {
@@ -70,67 +109,55 @@ export default {
 
   data() {
     return {
-      rentPeriod: 'monthly',
+      rentPeriod: 'monthly', // monthly or weekly
       rent: 800,
       postcode: '',
-      loadingSubmission: false,
+      loadingSubmission: false, // toggles the loading icon in the Submit button
       myConfig: {
+        // when the API call is complete, this data is replaced with the API response
         fixed_membership_fee: false,
-        fixed_membership_fee_amount: 0,
+        fixed_membership_fee_amount: 0
       }
     }
   },
   computed: {
     getMembershipFee() {
-      const VAT = 1.2 // 20% VAT
-      if (this.myConfig.fixed_membership_fee)
-        return this.myConfig.fixed_membership_fee_amount * VAT
-
-      let membershipFee =
-        this.rentPeriod === 'monthly' ? this.rent / 4 : this.rent
-      membershipFee = membershipFee * VAT
-      membershipFee = this.round(membershipFee)
-
-      const minimumFee = 120 * VAT
-      if (membershipFee < minimumFee) membershipFee = minimumFee
-
-      return membershipFee
+      return getMembershipFee({
+        fixed_membership_fee: this.myConfig.fixed_membership_fee,
+        fixed_membership_fee_amount: this.myConfig.fixed_membership_fee_amount,
+        rentPeriod: this.rentPeriod,
+        rent: this.rent
+      })
     },
     clientId() {
-      return parseInt(this.$route.params.client_id)
+      return toInt(this.$route.params.client_id)
     }
   },
 
   watch: {
-    downloadedConfig(value) {
-      console.log('CONFIG LOADED')
-      console.log(value)
-      if (typeof value === 'undefined') return
+    config(value) {
+      if (typeof value == 'undefined') return
       this.myConfig = value
     }
   },
 
   methods: {
-    round(num) {
-      // Round always, even a num like 1.5 => 1.50
-      // source: https://stackoverflow.com/a/12830454
-      return num.toFixed(2)
-    },
-    toPence(num) {
-      // source: https://stackoverflow.com/a/8388483
-      const pence = num * 100
-      const asInteger = parseInt(pence, 10)
-      return asInteger
-    },
     async createFlatbond() {
-      //   if (!this.validateInputs()) return
+      console.log(this.myConfig.fixed_membership_fee)
+      console.log(this.myConfig.fixed_membership_fee_amount)
+
       this.loadingSubmission = true
 
       const newFlatbond = {
-        rent: this.toPence(this.rent),
+        rent: toPence(this.rent),
         postcode: this.postcode,
-        client_id: this.client_id,
-        membership_fee: this.toPence(this.getMembershipFee)
+        client_id: this.clientId,
+        membership_fee: toPence(this.getMembershipFee)
+      }
+
+      if (!validateFlatbond(newFlatbond, this.openNotification)) {
+        this.loadingSubmission = false
+        return
       }
 
       try {
@@ -140,22 +167,14 @@ export default {
         })
 
         const flatbond = mutation.data.createFlatbond
-        console.log('Flatbond:', flatbond)
-        this.loadingSubmission = false
+        console.log('flatbond now: ', flatbond)
         this.redirectToDetailsPage(flatbond)
       } catch (error) {
         console.error(error)
         this.openNotification('error', error)
+      } finally {
         this.loadingSubmission = false
       }
-    },
-    validateInputs() {
-      if (this.postcode.length < 5) {
-        this.openNotification('error', 'Postcode is too short')
-        return false
-      }
-
-      return true
     },
     openNotification(type, title) {
       this.$notification[type]({
@@ -165,7 +184,7 @@ export default {
     redirectToDetailsPage(flatbond) {
       this.$store.commit('SET_FLATBOND', flatbond)
       this.$router.push({
-        path: 'details'
+        path: '../details'
       })
     }
   }

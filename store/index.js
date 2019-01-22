@@ -2,10 +2,10 @@
 
 export const state = () => ({
   flatbond: {
-    client_id: 1,
-    rent: 10,
-    postcode: 'aa',
-    membership_fee: 50
+    client_id: 0,
+    rent: 0,
+    postcode: 'None',
+    membership_fee: 0
   }
 })
 
