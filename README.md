@@ -63,22 +63,7 @@ Visit the [live demo](https://flatfair.meechan.co/).
 
 ### Screenshot of Cypress in action
 
-[Click here](https://imgur.com/wx9V6GB.gifA) to view the GIF of the pages & Cypress testing in action.
-
-### Folder structure
-
-```python
-- apollo - GraphQL queries & mutations to be used by the web client
-- components - components used in the web client, like the Header
-- functions - all of the files to serve an Apollo API over Netlify Functions
-- layouts - a layout for the web client pages
-- pages - one file in here for every page. Rutomatically routed. _client_id is handy too 
-- plugins - if you want to add anything to Vue (besides Ant Design), here is a place
-- static - static files like favicon, images, etc.
-- store - Vuex state store
-- test/e2e/integration/unit and test/e2e/integration/e2e - stores all of the tests, like test.spec.js
-- utils - handy files containing functionality which can be re-used across the application (both front and back-end)
-```
+[Click here](https://imgur.com/wx9V6GB.gif) to view the GIF of the pages & Cypress testing in action.
 
 ### Folder structure
 
