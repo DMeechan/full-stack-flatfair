@@ -127,7 +127,7 @@ export default {
         fixed_membership_fee_amount: this.myConfig.fixed_membership_fee_amount,
         rentPeriod: this.rentPeriod,
         rent: this.rent
-      })
+      }) / 100 // convert it from pence into pounds
     },
     clientId() {
       return toInt(this.$route.params.client_id)

@@ -84,3 +84,7 @@ dist
 sw.*
 
 lambda/
+
+*.mp4
+*.jpg
+test/e2e/videos/*
