@@ -51,11 +51,11 @@ Other tools
 - [Cypress](https://www.cypress.io/) for unit testing and end-to-end testing
 - [Git](https://git-scm.com/) version control
 
-### Where is this hosted?
+<!-- ### Where is this hosted?
 
 On Netlify. The Nuxt.js front-end is being served by Netlify (with server-side rendering) and the serverless GraphQL API server is running on Netlify Functions.
 
-Why Netlify? It's free. It's pretty easy to use. It's super fast.
+Why Netlify? It's free. It's pretty easy to use. It's super fast. -->
 
 <!-- Visit the [live demo](https://flatfair.meechan.co/). -->
 
