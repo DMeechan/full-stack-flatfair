@@ -1,17 +1,17 @@
 <template>
   <div>
-    <a-card :title="`Client ${flatbond.client_id}`" :bordered="true" hoverable style="width: 300px">
+    <a-card :title="`Client ${flatbond.client_id}`" :bordered="false" style="width: 300px">
       <p>
-        <b>Postcode</b>
-        : {{ flatbond.postcode }}
+        <b>Postcode:</b>
+        {{ flatbond.postcode }}
       </p>
       <p>
-        <b>Rent</b>
-        : £{{ rent }}
+        <b>Rent:</b>
+        £{{ rent }}
       </p>
       <p>
-        <b>Membership fee</b>
-        : £{{ membershipFee }}
+        <b>Membership fee:</b>
+        £{{ membershipFee }}
       </p>
     </a-card>
   </div>

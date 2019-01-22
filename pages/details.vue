@@ -6,7 +6,7 @@
       </a-col>
       <a-col :span="2">
         <nuxt-link :to="`/create`">
-          <a-button type="primary" icon="backward">Go</a-button>
+          <a-button type="primary" icon="backward">Back</a-button>
         </nuxt-link>
       </a-col>
     </a-row>
