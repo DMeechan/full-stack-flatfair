@@ -46,8 +46,8 @@
       <a-col :span="6">
         <div>
           <a-radio-group v-model="rentPeriod">
-            <a-radio-button value="weekly">Weekly</a-radio-button>
-            <a-radio-button value="monthly">Monthly</a-radio-button>
+            <a-radio-button id="rent-weekly" value="weekly">Weekly</a-radio-button>
+            <a-radio-button id="rent-monthly" value="monthly">Monthly</a-radio-button>
           </a-radio-group>
         </div>
       </a-col>
@@ -59,7 +59,7 @@
         <p>What's your postcode?</p>
       </a-col>
       <a-col :span="6">
-        <a-input placeholder v-model="postcode" ref="postcode"/>
+        <a-input placeholder id="postcode" v-model="postcode" ref="postcode"/>
       </a-col>
     </a-row>
 
@@ -68,12 +68,15 @@
       <a-col :span="6">
         <p>Your membership fee will be:</p>
       </a-col>
-      <a-col :span="6">{{ getMembershipFee }}</a-col>
+      <a-col :span="6">
+        <span id="membership-fee">{{ getMembershipFee }}</span>
+      </a-col>
     </a-row>
 
     <!-- SUBMIT BUTTON -->
     <div class="vertical-space">
       <a-button
+        id="submit"
         type="primary"
         icon="plus"
         :loading="loadingSubmission"
@@ -122,12 +125,15 @@ export default {
   },
   computed: {
     getMembershipFee() {
-      return getMembershipFee({
-        fixed_membership_fee: this.myConfig.fixed_membership_fee,
-        fixed_membership_fee_amount: this.myConfig.fixed_membership_fee_amount,
-        rentPeriod: this.rentPeriod,
-        rent: this.rent
-      }) / 100 // convert it from pence into pounds
+      return (
+        getMembershipFee({
+          fixed_membership_fee: this.myConfig.fixed_membership_fee,
+          fixed_membership_fee_amount: this.myConfig
+            .fixed_membership_fee_amount,
+          rentPeriod: this.rentPeriod,
+          rent: this.rent
+        }) / 100
+      ) // convert it from pence into pounds
     },
     clientId() {
       return toInt(this.$route.params.client_id)
