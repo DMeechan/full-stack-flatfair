@@ -4,7 +4,7 @@ const VAT = 1.2 // 20% VAT
 const PENCE = 100
 const USE_PENCE = true
 
-describe.only('business logic', () => {
+describe('business logic', () => {
   context('membership fee', () => {
     it('is calculated correctly with a non-fixed fee', () => {
       let input = {

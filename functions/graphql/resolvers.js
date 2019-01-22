@@ -2,6 +2,7 @@ import { UserInputError } from 'apollo-server-lambda'
 import { validateRent, isFlatbondValid } from '../../utils/businessLogic'
 import { toPence } from '../../utils/maths'
 
+// store all of the configs and flatbounds in memory for now; in a prod environment, this would go into a database
 let configs = [
   {
     client_id: 1,
@@ -40,7 +41,9 @@ const findClientById = (array, client_id) =>
 
 export const resolvers = {
   Query: {
+    // return the config with the desired client_id
     config: (_, { client_id }) => findClientById(configs, parseInt(client_id)),
+    // return all configs
     configs: () => configs
   },
 

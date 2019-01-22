@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { round } from '../utils/maths.js'
+
 export default {
   props: {
     flatbond: {
@@ -32,18 +34,11 @@ export default {
   },
   computed: {
     membershipFee() {
-      return this.round(this.flatbond.membership_fee / 100)
+      return round(this.flatbond.membership_fee / 100)
     },
     rent() {
-      return this.round(this.flatbond.rent / 100)
+      return round(this.flatbond.rent / 100)
     }
   },
-  methods: {
-    round(num) {
-      // Round always, even a num like 1.5 => 1.50
-      // source: https://stackoverflow.com/a/12830454
-      return num.toFixed(2)
-    }
-  }
 }
 </script>

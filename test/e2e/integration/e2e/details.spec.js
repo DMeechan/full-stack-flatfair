@@ -29,7 +29,7 @@ describe('Details page', () => {
     cy.location('pathname').should('eq', '/create/1')
   })
 
-  it.only('shows the info of the user just submitted from create/2', () => {
+  it('shows the info of the user just submitted from create/2', () => {
     cy.visit('/create/2')
 
     cy.get('#postcode')

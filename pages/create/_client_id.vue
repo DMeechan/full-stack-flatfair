@@ -14,12 +14,8 @@
       </a-col>
       <a-col :span="6">
         <a-radio-group v-model="myConfig.fixed_membership_fee" disabled button-style="solid">
-          <a-radio-button :value="true">
-            Yes
-          </a-radio-button>
-          <a-radio-button :value="false">
-            No
-          </a-radio-button>
+          <a-radio-button :value="true">Yes</a-radio-button>
+          <a-radio-button :value="false">No</a-radio-button>
         </a-radio-group>
       </a-col>
     </a-row>
@@ -37,23 +33,19 @@
           :max="rentPeriod === 'monthly' ? 8660 : 2000"
           auto-focus
         >
-          <a-icon slot="prefix" type="pound" />
+          <a-icon slot="prefix" type="pound"/>
         </a-input-number>
       </a-col>
     </a-row>
 
     <!-- RENT AMOUNT: WEEKLY OR MONTHLY -->
     <a-row v-show="!myConfig.fixed_membership_fee" class="vertical-space">
-      <a-col :span="6" />
+      <a-col :span="6"/>
       <a-col :span="6">
         <div>
           <a-radio-group v-model="rentPeriod">
-            <a-radio-button value="weekly">
-              Weekly
-            </a-radio-button>
-            <a-radio-button value="monthly">
-              Monthly
-            </a-radio-button>
+            <a-radio-button value="weekly">Weekly</a-radio-button>
+            <a-radio-button value="monthly">Monthly</a-radio-button>
           </a-radio-group>
         </div>
       </a-col>
@@ -65,7 +57,7 @@
         <p>What's your postcode?</p>
       </a-col>
       <a-col :span="6">
-        <a-input id="postcode" ref="postcode" v-model="postcode" placeholder />
+        <a-input id="postcode" ref="postcode" v-model="postcode" placeholder/>
       </a-col>
     </a-row>
 
@@ -75,9 +67,7 @@
         <p>Your membership fee will be:</p>
       </a-col>
       <a-col :span="6">
-        <span id="membership-fee">
-          {{ membershipFee }}
-        </span>
+        <span id="membership-fee">{{ membershipFee }}</span>
       </a-col>
     </a-row>
 
@@ -89,9 +79,7 @@
         icon="plus"
         :loading="loadingSubmission"
         @click="createFlatbond"
-      >
-        Submit
-      </a-button>
+      >Submit</a-button>
     </div>
   </a-card>
 </template>
@@ -106,6 +94,7 @@ import { validateFlatbond } from '../../utils/validation.js'
 
 export default {
   // Send a GraphQL request to config(client_id) and store it in this.config
+  // the client_id parameter will come this URL, like /create/2
   apollo: {
     config: {
       query: configQuery,
@@ -140,7 +129,7 @@ export default {
         fixed_membership_fee_amount: this.myConfig.fixed_membership_fee_amount,
         rentPeriod: this.rentPeriod,
         rent: this.rent
-      }) // convert it from pence into pounds
+      })
     },
     clientId() {
       return toInt(this.$route.params.client_id)
@@ -151,7 +140,7 @@ export default {
     config(value) {
       if (typeof value === 'undefined') return
 
-      // divide the fixed amount by 100 to get it into pounds instead of pence
+      // divide the fixed fee by 100 to get it into pounds instead of pence
       value.fixed_membership_fee_amount /= 100
       this.myConfig = value
     }
@@ -159,6 +148,8 @@ export default {
 
   methods: {
     async createFlatbond() {
+      // Peform this method acynchronously (using async / await) because we don't know how long the GraphQL response will take
+
       this.loadingSubmission = true
 
       const newFlatbond = {
@@ -173,8 +164,6 @@ export default {
         return
       }
 
-      console.log('newFlatbond: ', newFlatbond)
-
       try {
         const mutation = await this.$apollo.mutate({
           mutation: createFlatbondMutation,
@@ -182,7 +171,7 @@ export default {
         })
 
         const flatbond = mutation.data.createFlatbond
-        console.log('flatbond now: ', flatbond)
+        console.log('Flatbond: ', flatbond)
         this.redirectToDetailsPage(flatbond)
       } catch (error) {
         console.error('Error creating flatbond:', error)
