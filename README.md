@@ -23,7 +23,7 @@ $ yarn start
 $ yarn run generate
 ```
 
-For a detailed explanation on how things work with Nuxt.js, checko ut the [Nuxt.js docs](https://nuxtjs.org).
+For a detailed explanation on how things work with Nuxt.js, check out the [Nuxt.js docs](https://nuxtjs.org).
 
 ## Architecture
 
