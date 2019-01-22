@@ -189,6 +189,7 @@ export default {
     },
     redirectToDetailsPage(flatbond) {
       this.$store.commit('SET_FLATBOND', flatbond)
+      this.$store.commit('SET_FIXED_FEE', this.myConfig.fixed_membership_fee)
       this.$router.push({
         path: '../details'
       })

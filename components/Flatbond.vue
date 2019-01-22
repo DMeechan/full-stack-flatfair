@@ -5,7 +5,7 @@
         <b>Postcode:</b>
         {{ flatbond.postcode }}
       </p>
-      <p>
+      <p v-if="showRent">
         <b>Rent:</b>
         £{{ rent }}
       </p>
@@ -23,6 +23,11 @@ export default {
     flatbond: {
       type: Object,
       required: true
+    },
+    showRent: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   methods: {
@@ -34,10 +39,10 @@ export default {
   },
   computed: {
     membershipFee() {
-      return this.round(this.flatbond.rent / 100)
+      return this.round(this.flatbond.membership_fee / 100)
     },
     rent() {
-      return this.round(this.flatbond.membership_fee / 100)
+      return this.round(this.flatbond.rent / 100)
     }
   }
 }

@@ -6,7 +6,8 @@ export const state = () => ({
     rent: 0,
     postcode: 'None',
     membership_fee: 0
-  }
+  },
+  fixed_membership_fee: false
 })
 
 export const mutations = {
@@ -17,5 +18,8 @@ export const mutations = {
       postcode,
       membership_fee
     }
+  },
+  SET_FIXED_FEE(state, value) {
+    state.fixed_membership_fee = value
   }
 }

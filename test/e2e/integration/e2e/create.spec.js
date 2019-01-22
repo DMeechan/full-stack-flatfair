@@ -14,17 +14,18 @@ describe('Create page', () => {
     cy.get(
       ':nth-child(1) > .ant-radio-group > .ant-radio-button-wrapper-checked'
     ).click()
-    cy.get('#membership-fee').should('have.value', 300)
+    cy.get('#membership-fee').contains('300')
 
     // Click Weekly
     cy.get(':nth-child(1) > .ant-radio-group > :nth-child(1)').click()
-    cy.get('#membership-fee').should('have.value', 1200)
+    cy.get('#membership-fee').contains('1200')
 
     cy.get('#postcode')
       .clear()
       .type('AWS EC2')
 
-    cy.get('#submit')
+    cy.get('#submit').click()
+    cy.location('pathname').should('eq', '/details')
   })
 
   it('create/2 allows users to enter and submit info, with a fixed membership fee', () => {
