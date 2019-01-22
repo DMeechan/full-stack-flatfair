@@ -137,15 +137,15 @@ export default {
   watch: {
     config(value) {
       if (typeof value == 'undefined') return
+
+      // divide the fixed amount by 100 to get it into pounds instead of pence
+      value.fixed_membership_fee_amount /= 100
       this.myConfig = value
     }
   },
 
   methods: {
     async createFlatbond() {
-      console.log(this.myConfig.fixed_membership_fee)
-      console.log(this.myConfig.fixed_membership_fee_amount)
-
       this.loadingSubmission = true
 
       const newFlatbond = {
@@ -170,8 +170,8 @@ export default {
         console.log('flatbond now: ', flatbond)
         this.redirectToDetailsPage(flatbond)
       } catch (error) {
-        console.error(error)
-        this.openNotification('error', error)
+        console.error('Error creating flatbond:', error)
+        this.openNotification('error', 'Unable to create flatbond :(')
       } finally {
         this.loadingSubmission = false
       }
