@@ -64,14 +64,16 @@ export const isFlatbondValid = (rent, config) => {
   */
   const expectedWeeklyMembershipFee = getMembershipFee({
     rentPeriod: 'weekly',
-    rent,
-    ...config
+    fixed_membership_fee: config.fixed_membership_fee,
+    fixed_membership_fee_amount: config.fixed_membership_fee_amount,
+    rent
   })
 
   const expectedMonthlyMembershipFee = getMembershipFee({
     rentPeriod: 'monthly',
-    rent,
-    ...config
+    fixed_membership_fee: config.fixed_membership_fee,
+    fixed_membership_fee_amount: config.fixed_membership_fee_amount,
+    rent
   })
 
   /*

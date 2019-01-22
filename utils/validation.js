@@ -1,12 +1,12 @@
 /**
  * Validate that a flatbond object is valid.
  * If invalid, showError() will be called
- * @param {Object} flatbond 
+ * @param {Object} flatbond
  * @param {Function} showError(errorType, title)
  */
 export const validateFlatbond = (flatbond, showError) => {
-    console.log('flatbond: ', flatbond);
-  if (flatbond.postcode.length < 5) {
+  console.log('flatbond: ', flatbond)
+  if (flatbond.postcode.length < 5 || typeof flatbond.membership_fee !== 'string') {
     showError('error', 'Postcode is too short')
     return false
   }
