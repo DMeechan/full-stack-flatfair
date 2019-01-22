@@ -30,19 +30,19 @@ export default {
       default: true
     }
   },
-  methods: {
-    round(num) {
-      // Round always, even a num like 1.5 => 1.50
-      // source: https://stackoverflow.com/a/12830454
-      return num.toFixed(2)
-    }
-  },
   computed: {
     membershipFee() {
       return this.round(this.flatbond.membership_fee / 100)
     },
     rent() {
       return this.round(this.flatbond.rent / 100)
+    }
+  },
+  methods: {
+    round(num) {
+      // Round always, even a num like 1.5 => 1.50
+      // source: https://stackoverflow.com/a/12830454
+      return num.toFixed(2)
     }
   }
 }

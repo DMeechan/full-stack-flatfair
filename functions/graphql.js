@@ -1,4 +1,5 @@
-import { ApolloServer, gql, ApolloError } from 'apollo-server-lambda'
+import { ApolloServer } from 'apollo-server-lambda'
+// import { ApolloServer, gql, ApolloError } from 'apollo-server-lambda'
 // import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools'
 
 import { typeDefs } from './graphql/typeDefs'
@@ -19,14 +20,14 @@ const server = new ApolloServer({
   resolvers,
   formatError: error => {
     console.log('OH NO, ERROR FOUND :(')
-    console.error(error);
-    return new Error('Internal server error');
+    console.error(error)
+    return new Error('Internal server error')
   },
   context: ({ event, context }) => ({
     headers: event.headers,
     functionName: context.functionName,
     event,
-    context,
+    context
   }),
   introspection: true // NOTE: in a real production environment, this would be disabled; however, enabling this makes using GraphQL Playground much easier
 })
@@ -35,10 +36,6 @@ exports.handler = server.createHandler({
   cors: {
     origin: '*',
     methods: 'POST',
-    allowedHeaders: [
-      'Content-Type',
-      'Origin',
-      'Accept'
-    ]
+    allowedHeaders: ['Content-Type', 'Origin', 'Accept']
   }
-});
+})

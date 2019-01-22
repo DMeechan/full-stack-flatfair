@@ -29,7 +29,7 @@ The web client is build using the Vue.js framework and uses Nuxt.js to get serve
 
 The web client communicates to the back-end via a GraphQL API (think of it as an alternative to a REST API). Both the web client and Node.js server are using the Apollo libraries to handle this communication.
 
-Unit testing is handled by ava; end to end testing is handled by Cypress.
+Unit and  end to end testing is handled by Cypress.
 
 So, in summary:
 
@@ -37,8 +37,7 @@ So, in summary:
 - Ant Design CSS framework
 - Apollo client & server libraries for enable the GraphQL API
 - Lambda functions running Node.js
-- Unit tests with ava
-- End to end tests with Cypress
+- Unit tests and end to end tests with Cypress
 
 Where is this hosted? On Netlify.
 

@@ -11,7 +11,7 @@ describe('maths', () => {
 
       value = round(0)
       expect(value).to.equal('0.00')
-      
+
       value = round(-99)
       expect(value).to.equal('-99.00')
     })
@@ -32,14 +32,14 @@ describe('maths', () => {
 
   context('toInt', () => {
     it('converts to integer', () => {
-        let value = toInt(1.112)
-        expect(value).to.equal(1)
+      let value = toInt(1.112)
+      expect(value).to.equal(1)
 
-        value = toInt(-99.4)
-        expect(value).to.equal(-99)
+      value = toInt(-99.4)
+      expect(value).to.equal(-99)
 
-        value = toInt(0.0)
-        expect(value).to.equal(0)
+      value = toInt(0.0)
+      expect(value).to.equal(0)
     })
   })
 })

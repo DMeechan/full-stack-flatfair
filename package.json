@@ -15,10 +15,8 @@
     "build:lambda": "netlify-lambda build functions",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "run-p test:**",
-    "test:unit": "ava",
-    "test:e2e": "cypress run",
-    "e2e:open": "cypress open"
+    "test": "cypress run",
+    "test:open": "cypress open"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc2.3",
@@ -38,7 +36,6 @@
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@vue/test-utils": "^1.0.0-beta.27",
-    "ava": "^1.0.1",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.5",
     "browser-env": "^3.2.5",

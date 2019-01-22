@@ -13,39 +13,47 @@
         <p>Do you have a fixed membership fee?</p>
       </a-col>
       <a-col :span="6">
-        <a-radio-group v-model="myConfig.fixed_membership_fee" disabled buttonStyle="solid">
-          <a-radio-button v-bind:value="true">Yes</a-radio-button>
-          <a-radio-button v-bind:value="false">No</a-radio-button>
+        <a-radio-group v-model="myConfig.fixed_membership_fee" disabled button-style="solid">
+          <a-radio-button :value="true">
+            Yes
+          </a-radio-button>
+          <a-radio-button :value="false">
+            No
+          </a-radio-button>
         </a-radio-group>
       </a-col>
     </a-row>
 
     <!-- RENT AMOUNT -->
-    <a-row class="vertical-space" v-show="!myConfig.fixed_membership_fee">
+    <a-row v-show="!myConfig.fixed_membership_fee" class="vertical-space">
       <a-col :span="6">
         <p>How much is your rent (in pounds)?</p>
       </a-col>
       <a-col :span="6">
         <a-input-number
+          ref="rent"
+          v-model="rent"
           :min="rentPeriod === 'monthly' ? 110 : 25"
           :max="rentPeriod === 'monthly' ? 8660 : 2000"
-          v-model="rent"
-          ref="rent"
           auto-focus
         >
-          <a-icon slot="prefix" type="pound"/>
+          <a-icon slot="prefix" type="pound" />
         </a-input-number>
       </a-col>
     </a-row>
 
     <!-- RENT AMOUNT: WEEKLY OR MONTHLY -->
-    <a-row class="vertical-space" v-show="!myConfig.fixed_membership_fee">
-      <a-col :span="6"/>
+    <a-row v-show="!myConfig.fixed_membership_fee" class="vertical-space">
+      <a-col :span="6" />
       <a-col :span="6">
         <div>
           <a-radio-group v-model="rentPeriod">
-            <a-radio-button value="weekly">Weekly</a-radio-button>
-            <a-radio-button value="monthly">Monthly</a-radio-button>
+            <a-radio-button value="weekly">
+              Weekly
+            </a-radio-button>
+            <a-radio-button value="monthly">
+              Monthly
+            </a-radio-button>
           </a-radio-group>
         </div>
       </a-col>
@@ -57,7 +65,7 @@
         <p>What's your postcode?</p>
       </a-col>
       <a-col :span="6">
-        <a-input placeholder id="postcode" v-model="postcode" ref="postcode"/>
+        <a-input id="postcode" ref="postcode" v-model="postcode" placeholder />
       </a-col>
     </a-row>
 
@@ -67,7 +75,9 @@
         <p>Your membership fee will be:</p>
       </a-col>
       <a-col :span="6">
-        <span id="membership-fee">{{ membershipFee }}</span>
+        <span id="membership-fee">
+          {{ membershipFee }}
+        </span>
       </a-col>
     </a-row>
 
@@ -79,7 +89,9 @@
         icon="plus"
         :loading="loadingSubmission"
         @click="createFlatbond"
-      >Submit</a-button>
+      >
+        Submit
+      </a-button>
     </div>
   </a-card>
 </template>
@@ -123,15 +135,12 @@ export default {
   },
   computed: {
     membershipFee() {
-      return (
-        getMembershipFee({
-          fixed_membership_fee: this.myConfig.fixed_membership_fee,
-          fixed_membership_fee_amount: this.myConfig
-            .fixed_membership_fee_amount,
-          rentPeriod: this.rentPeriod,
-          rent: this.rent
-        })
-      ) // convert it from pence into pounds
+      return getMembershipFee({
+        fixed_membership_fee: this.myConfig.fixed_membership_fee,
+        fixed_membership_fee_amount: this.myConfig.fixed_membership_fee_amount,
+        rentPeriod: this.rentPeriod,
+        rent: this.rent
+      }) // convert it from pence into pounds
     },
     clientId() {
       return toInt(this.$route.params.client_id)
@@ -140,7 +149,7 @@ export default {
 
   watch: {
     config(value) {
-      if (typeof value == 'undefined') return
+      if (typeof value === 'undefined') return
 
       // divide the fixed amount by 100 to get it into pounds instead of pence
       value.fixed_membership_fee_amount /= 100
@@ -164,7 +173,7 @@ export default {
         return
       }
 
-      console.log('newFlatbond: ', newFlatbond);
+      console.log('newFlatbond: ', newFlatbond)
 
       try {
         const mutation = await this.$apollo.mutate({

@@ -3,9 +3,11 @@
     <a-menu v-model="currentRoute" mode="horizontal" theme="dark" :style="{ lineHeight: '64px' }">
       <a-row>
         <a-col :span="4">
-          <a-menu-item key="branding">Flatbond demo by Daniel Meechan</a-menu-item>
+          <a-menu-item key="branding">
+            Flatbond demo by Daniel Meechan
+          </a-menu-item>
         </a-col>
-        <a-col :span="17"/>
+        <a-col :span="17" />
         <a-col :span="2">
           <a-menu-item key="create">
             <nuxt-link :to="`/create`">

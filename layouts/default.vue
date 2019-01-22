@@ -1,9 +1,9 @@
 <template>
   <a-layout class="layout" style="height: 100vh;">
-    <Header/>
+    <Header />
     <a-layout-content class="layout-content">
       <div class="content-wrapper">
-        <nuxt/>
+        <nuxt />
       </div>
     </a-layout-content>
     <a-layout-footer />
