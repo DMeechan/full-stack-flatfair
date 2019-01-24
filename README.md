@@ -2,6 +2,10 @@
 
 > Full stack challenge for flatfair
 
+Built using Nuxt, Apollo, Serverless (netlify functions), and Ant (ant design). 
+
+> I suppose you could call this the... **NASA stack**! :D
+
 ## Build Setup
 
 ``` bash
@@ -15,12 +19,9 @@ $ yarn test
 # AND a local serverless Netlify lambda server on localhost:9000
 $ yarn run dev
 
-# build for production and launch server
+# build production-ready Nuxt & Functions and launch servers for them both
 $ yarn run build
 $ yarn start
-
-# generate static project from Nuxt.js
-$ yarn run generate
 ```
 
 For a detailed explanation on how things work with Nuxt.js, check out the [Nuxt.js docs](https://nuxtjs.org).
@@ -46,7 +47,7 @@ This project is using a number of modern web technologies:
 - [Node.js](https://nodejs.org/en/)
 
 
-Other tools
+### Tooling
 
 - [Cypress](https://www.cypress.io/) for unit testing and end-to-end testing
 - [Git](https://git-scm.com/) version control
@@ -61,24 +62,22 @@ Why Netlify? It's free. It's pretty easy to use. It's super fast. -->
 
 ## Design
 
-### Screenshot of Cypress in action
+### See the testing in action
 
-[Click here](https://imgur.com/wx9V6GB.gif) to view the GIF of the pages & Cypress testing in action.
+[Click here](https://imgur.com/wx9V6GB.gif) to view a GIF of the pages & Cypress testing in action.
 
 ### Folder structure
 
-```bash
-- apollo - GraphQL queries & mutations to be used by the web client
-- components - components used in the web client, like the Header
-- functions - all of the files to serve an Apollo API over Netlify Functions
-- layouts - a layout for the web client pages
-- pages - one file in here for every page. Rutomatically routed. _client_id is handy too 
-- plugins - if you want to add anything to Vue (besides Ant Design), here is a place
-- static - static files like favicon, images, etc.
-- store - Vuex state store
-- test/e2e/integration/unit and test/e2e/integration/e2e - stores all of the tests, like test.spec.js
-- utils - handy files containing functionality which can be re-used across the application (both front and back-end)
-```
+- `/apollo` - GraphQL queries & mutations to be used by the web client
+- `/components` - components used in the web client, like the Header
+- `/functions` - all of the serverless files to serve a GraphQL Apollo API over Netlify Functions
+- `/layouts` - a layout for the web client pages
+- `/pages` - one file in here for every page. Rutomatically routed. _client_id is handy too 
+- `/plugins` - if you want to add anything to Vue (besides Ant Design), here is a place
+- `/static` - static files like favicon, images, etc.
+- `/store` - Vuex state store
+- `/test/e2e/integration/unit` and `/test/e2e/integration/e2e` store all of the unit tests and e2e tests (named `test.spec.js`)
+- `/utils` - handy files containing functionality which can be re-used across the application (both front and back-end), like calculating membership fees
 
 ### Web client pages
 
@@ -152,12 +151,14 @@ mutation {
 
 I figured that this project would be a great opportunity to learn serverless (which it sure has been), but it ended up slowing me down much more than expected.
 
-The toughest part of this project has certainly been using Apollo lambda server together with Netlify and Nuxt.js. With all three cutting-edge technologies combined, there were a few difficulties: error messages are often lackluster (and sometimes non-existent), tools for debugging don't really seem to exist, there isn't a great deal of documentation & examples online.
+The toughest part of this project has certainly been using Apollo lambda server together with Netlify and Nuxt.js. With all three cutting-edge technologies combined, there were a few difficulties: error messages are often lackluster (and sometimes non-existent), tools for debugging don't really seem to exist, and there aren't a great deal of documentation & examples online.
 
-So why choose them in the first place? Recently I've been programming almost exclusively in Elixir, so why come back to JavaScript for this project?
+So why choose them in the first place? Recently I've been programming almost exclusively in Elixir ([why Elixir?](https://medium.com/margobank/why-elixir-546427542c)), so why come back to JavaScript for this project?
 
-To **learn** serverless and **to keep pushing myself outside of my comfort zone**. Working with cutting-edge tooling can sometimes feel like running up an infinite mountain, but it can also be a great way to keep yourself pushing in the direction of growth.
+To **learn serverless** and **to keep pushing myself outside of my comfort zone**. Working with modern tooling can sometimes feel like running up an infinite mountain, but it can also be a great way to keep yourself pushing in the direction of growth.
 
-Unfortunately, though, this came at the cost of stress and time. The greatest challenge was one of the libraries (I'm looking at you, Apollo Server Lambda) being *very* picky about tiny details but often the error messages and stack trace gave zero guidance on the source of the problem. This lead to losing a couple hours just trying to debug *tiny* issues because they were near-impossible to track down with Apollo. As a result, this project ultimately took me longer to build than the 5 hours that I'd originally allocated. It's difficult to know exactly how many hours because the last few days have been incredibly hectic with constant task-switching necessary, but nonetheless I'm pretty sure that it was over 5 hours.
+Unfortunately, though, this came at the cost of stress and time. The greatest challenge was one of the libraries (*I'm looking at you, Apollo Server Lambda*) being *very* picky with tiny details and then giving zero guidance on the source of the problem (the error messages and stack trace were typically not helpful). This lead to me losing a couple hours just trying to debug *tiny* issues because they were near-impossible to track down with Apollo. As a result, this project ultimately took me longer to build than the 5 hours that I'd originally allocated. Unfortunately, it's pretty difficult to know exactly how many hours because the last few days have been pretty hectic.
 
 However, looking beyond the scope of just this project, I've now got a much stronger understanding on the benefits and drawbacks of serverless & GraphQL (as a developer) and a healthy dose of perspective.
+
+It would have been simpler to use vanilla Vue.js and serve a simple REST API from Express & Node... but then I wouldn't have learnt anything new from this exercise.
