@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { round } from '../utils/maths.js'
+import { round } from '~/utils/maths.js'
 
 export default {
   props: {

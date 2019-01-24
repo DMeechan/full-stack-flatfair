@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Flatbond from '../components/Flatbond'
+import Flatbond from './details/flatbond'
 
 export default {
   components: {

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Details from '~/pages/details'
-import Create from '~/pages/create'
+import Details from '~/components/details'
+import Create from '~/components/create'
 
 Vue.use(Router)
 

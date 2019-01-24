@@ -85,12 +85,12 @@
 </template>
 
 <script>
-import createFlatbondMutation from '../apollo/mutations/createFlatbond.gql'
-import configQuery from '../apollo/queries/config.gql'
+import createFlatbondMutation from '~/apollo/mutations/createFlatbond.gql'
+import configQuery from '~/apollo/queries/config.gql'
 
-import { toPence, toInt } from '../utils/maths.js'
-import { getMembershipFee } from '../utils/businessLogic.js'
-import { validateFlatbond } from '../utils/validation.js'
+import { toPence, toInt } from '~/utils/maths.js'
+import { getMembershipFee } from '~/utils/businessLogic.js'
+import { validateFlatbond } from '~/utils/validation.js'
 
 export default {
   // Send a GraphQL request to config(client_id) and store it in this.config
