@@ -21,6 +21,7 @@
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc2.3",
     "@nuxtjs/pwa": "^2.6.0",
+    "@nuxtjs/router": "^1.1.0",
     "ant-design-vue": "^1.1.10",
     "apollo-server-lambda": "^2.3.1",
     "babel-register": "^6.26.0",
