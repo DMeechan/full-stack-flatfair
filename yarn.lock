@@ -1307,11 +1307,6 @@
     "@nuxtjs/meta" "^2.6.0"
     "@nuxtjs/workbox" "^2.6.0"
 
-"@nuxtjs/router@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/router/-/router-1.1.0.tgz#d79c5f7ed1781465d30b8967779eaca2df18cb3b"
-  integrity sha512-3tFt8AbHXVMB0TRLBuZoXjS2CGgxszE0nejN9+5NSjcKBkNI+MCxiuAyM8JOeWzLZPG7r4Xlf5HnUsBKL3wK5Q==
-
 "@nuxtjs/workbox@^2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/workbox/-/workbox-2.6.0.tgz#eb057e7cbddc8f50bc181a5af9795cc93bd774d8"
